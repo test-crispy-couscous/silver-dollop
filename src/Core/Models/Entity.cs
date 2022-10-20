@@ -1,4 +1,4 @@
-﻿namespace AspnetTemplate.Core.Models;
+﻿namespace SilverDollop.Core.Models;
 
 public abstract class Entity
 {

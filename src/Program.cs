@@ -1,4 +1,4 @@
-using AspnetTemplate.Infrastructure;
+using SilverDollop.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

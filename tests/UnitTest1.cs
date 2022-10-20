@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace AspnetTemplate.Tests;
+namespace SilverDollop.Tests;
 
 public class UnitTest1
 {

@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "AspnetTemplate": {
+    "SilverDollop": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

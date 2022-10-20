@@ -1,7 +1,7 @@
-﻿using AspnetTemplate.Core.Models;
+﻿using SilverDollop.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspnetTemplate.Infrastructure;
+namespace SilverDollop.Infrastructure;
 
 public class AppDbContext : DbContext
 {
