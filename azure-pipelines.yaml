@@ -19,6 +19,10 @@ steps:
   displayName: "sonar begin"
   condition: ne(variables['Build.Reason'], 'PullRequest')
 
+- script: git fetch origin main --depth=1
+  displayName: "fetch main"
+  condition: eq(variables['Build.Reason'], 'PullRequest')
+
 - script: dotnet sonarscanner begin /o:test-crispy-couscous /k:test-crispy-couscous_silver-dollop /d:sonar.host.url=https://sonarcloud.io /d:sonar.login="$(SONAR_TOKEN)"  /d:sonar.pullrequest.base="$(System.PullRequest.TargetBranch)" /d:sonar.pullrequest.branch="$(Build.SourceBranchName)" /d:sonar.pullrequest.key="$(System.PullRequest.PullRequestNumber)"
   displayName: "sonar begin"
   condition: eq(variables['Build.Reason'], 'PullRequest')
