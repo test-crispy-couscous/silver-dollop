@@ -2,6 +2,10 @@ trigger:
   - main
   - develop
 
+pr:
+  - main
+  - develop
+
 variables:
   - group: sonar-github-alternative
   - name: solution
