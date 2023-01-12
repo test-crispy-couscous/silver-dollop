@@ -20,6 +20,7 @@ public class SampleController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
+        var y = 2;
         var samples = await _context.Samples.SingleOrDefaultAsync(x => x.Id == id);
         if (samples is null)
             return NotFound();
