@@ -1,0 +1,40 @@
+name: Evaluate PR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-n-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dotnet-sonarscanner
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+      - name: Build the project, run all tests and publish to SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_VERSION: ${{ github.sha }}
+        run: |
+          dotnet sonarscanner begin \
+            /k:"test-crispy-couscous_silver-dollop" \
+            /o:"test-crispy-couscous" \
+            /d:sonar.login="$SONAR_TOKEN" \
+            /v:"$PROJECT_VERSION" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.cs.opencover.reportsPaths="**/*/coverage.opencover.xml" \
+            /d:sonar.cs.vstest.reportsPaths="**/*/*.trx"
+
+          dotnet build
+          dotnet test \
+            --logger trx \
+            --logger "console;verbosity=detailed" \
+            --settings "runsettings.xml" \
+            --results-directory test-reports
+
+          # Now we can collect the results 👍
+          dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
