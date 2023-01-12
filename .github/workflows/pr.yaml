@@ -34,7 +34,8 @@ jobs:
             /d:sonar.cs.vstest.reportsPaths="**/*/*.trx" \
             /d:sonar.pullrequest.base=$PR_BASE_REF \
             /d:sonar.pullrequest.branch=$PR_HEAD_REF \
-            /d:sonar.pullrequest.key=$PR_NUMBER
+            /d:sonar.pullrequest.key=$PR_NUMBER \
+            /d:sonar.verbose=true
 
           dotnet build
           dotnet test \
