@@ -20,15 +20,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROJECT_VERSION: ${{ github.sha }}
           PR_NUMBER: ${{ github.event.number }}
+          PR_BASE_REF: ${{ github.base_ref }}
+          PR_HEAD_REF: ${{ github.head_ref }}
         run: |
           dotnet sonarscanner begin \
             /k:"test-crispy-couscous_silver-dollop" \
             /o:"test-crispy-couscous" \
             /d:sonar.login="$SONAR_TOKEN" \
             /v:"$PROJECT_VERSION" \
+            /d:sonar.scm.revision="$PROJECT_VERSION" \
             /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.cs.opencover.reportsPaths="**/*/coverage.opencover.xml" \
             /d:sonar.cs.vstest.reportsPaths="**/*/*.trx" \
+            /d:sonar.pullrequest.base=$PR_BASE_REF \
+            /d:sonar.pullrequest.branch=$PR_HEAD_REF \
             /d:sonar.pullrequest.key=$PR_NUMBER
 
           dotnet build
