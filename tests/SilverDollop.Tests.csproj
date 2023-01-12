@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\SilverDollop\SilverDollop.csproj" />
+      <ProjectReference Include="..\src\SilverDollop.csproj" />
     </ItemGroup>
 
 </Project>
