@@ -15,6 +15,7 @@ jobs:
         run: |
           dotnet tool install --global dotnet-sonarscanner
       - name: Build the project, run all tests and publish to SonarCloud
+        if: github.event.pull_request.head.repo.full_name == github.repository
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,3 +39,14 @@ jobs:
 
           # Now we can collect the results 👍
           dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+
+
+      - name: Build the project and run all tests
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          dotnet build
+          dotnet test \
+            --logger trx \
+            --logger "console;verbosity=detailed" \
+            --settings "runsettings.xml" \
+            --results-directory test-reports
