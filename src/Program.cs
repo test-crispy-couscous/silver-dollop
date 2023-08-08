@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var y = "";
+var y = "Test";
 
 // Add services to the container.
 
